@@ -5,11 +5,6 @@
 #include <vector>
 #include <string>
 
-std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs) 
-{
-    return std::vector<std::vector<std::string>>();
-}
-
 int hash(const std::string& str1, const std::string& str2)
 {
     int hash = 0;
@@ -26,37 +21,49 @@ int hash(const std::string& str1, const std::string& str2)
     return hash;
 }
 
-int main()
+std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs) 
 {
-    std::vector<std::string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
-
     std::vector<std::vector<std::string>> groups;
+
+    std::vector<bool> flags(strs.size(), 0);
 
     for (size_t i = 0; i < strs.size(); i++)
     {
         std::vector<std::string> group;
 
-        group.push_back(strs[i]);
-
-        for (size_t j = i + 1; j < strs.size(); j++)
+        if (!flags[i])
         {
-            //std::cout << "hash(" << strs[i] << ", " << strs[j] << ") = " << hash(strs[i], strs[j]) << std::endl;
+            group.push_back(strs[i]);
+            flags[i] = true;
 
-            if (!hash(strs[i], strs[j]))
+            for (size_t j = i + 1; j < strs.size(); j++)
             {
-                group.push_back(strs[j]);
-            }
-        }
+                //std::cout << "hash(" << strs[i] << ", " << strs[j] << ") = " << hash(strs[i], strs[j]) << std::endl;
 
-        groups.push_back(group);
+                if (!hash(strs[i], strs[j]) && !flags[j])
+                {
+                    flags[j] = true;
+                    group.push_back(strs[j]);
+                }
+            }
+
+            groups.push_back(group);
+        }
     }
 
-    for (auto group : groups)
+    return groups;
+}
+
+int main()
+{
+    std::vector<std::string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+
+    for (auto group : groupAnagrams(strs))
     {
         std::cout << "[ ";
         for (auto string : group)
         {
-            std::cout << string << ", ";
+            std::cout << string << " ";
         }
 
         std::cout << "]" << std::endl;
