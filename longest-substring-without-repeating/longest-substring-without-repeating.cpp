@@ -12,24 +12,24 @@ using std::max;
 int lengthOfLongestSubstring(string s)
 {
 	int subLength = 0;
-	vector<int> chars(128);
+	vector<int> chars(128, -1);
 
 	int right = 0, left = 0;
 
 	while (right < s.length())
 	{
 		char r = s[right];
-		chars[r]++;
 
-		while (chars[r] > 1)
+		int index = chars[r];
+
+		if (index != -1 && index >= left && index < right)
 		{
-			char l = s[left];
-			chars[l]--;
-			left++;
+			left = index + 1;
 		}
 
 		subLength = max(subLength, right - left + 1);
 
+		chars[r] = right;
 		right++;
 	}
 
