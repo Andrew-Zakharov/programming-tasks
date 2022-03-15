@@ -6,62 +6,57 @@
 #include <vector>
 
 using std::string;
+using std::vector;
+using std::max;
+
+bool allUnique(const string s, int start, int end)
+{
+	bool isUnique = true;
+
+	vector<int> chars(128);
+
+	for (int i = start; i < end; i++)
+	{
+		char c = s[i];
+		chars[c]++;
+		if (chars[c] > 1)
+		{
+			isUnique = false;
+			break;
+		}
+	}
+
+	return isUnique;
+}
 
 int lengthOfLongestSubstring(string s)
 {
 	const int stringLength = s.length();
-	int maxSubstringLength = 0;
-	string sub;
+	int subLength = 0;
 
-	for (int k = 0; k < stringLength; k++)
+	for (int i = 0; i < stringLength; i++)
 	{
-		for (int i = k; i < stringLength; i++)
+		for (int j = i; j < stringLength; j++)
 		{
-			char c = s[i];
-			bool exist = false;
-
-			for (int j = 0; j < sub.length(); j++)
+			if (allUnique(s, i, j))
 			{
-				if (c == sub[j])
-				{
-					exist = true;
-					break;
-				}
-			}
-
-			if (exist)
-			{
-				if (maxSubstringLength < sub.length())
-				{
-					maxSubstringLength = sub.length();
-				}
-
-				sub.clear();
-
-				break;
-			}
-
-			sub.push_back(c);
-
-			if (maxSubstringLength < sub.length())
-			{
-				maxSubstringLength = sub.length();
+				subLength = max(subLength, j - i + 1);
 			}
 		}
 	}
 
-	return maxSubstringLength;
+	return subLength;
 }
 
 int main()
 {
 	std::vector<std::string> list =
 	{
-		//"abcabcbb",
-		//"abcdefgh",
-		//"bbbbbbbb",
-		//"pwwkew",
-		//"dvdf",
+		"abcabcbb",
+		"abcdefgh",
+		"bbbbbbbb",
+		"pwwkew",
+		"dvdf",
 		"a"
 	};
 
