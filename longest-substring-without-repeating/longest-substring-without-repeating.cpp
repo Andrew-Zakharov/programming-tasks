@@ -9,40 +9,28 @@ using std::string;
 using std::vector;
 using std::max;
 
-bool allUnique(const string s, int start, int end)
-{
-	bool isUnique = true;
-
-	vector<int> chars(128);
-
-	for (int i = start; i < end; i++)
-	{
-		char c = s[i];
-		chars[c]++;
-		if (chars[c] > 1)
-		{
-			isUnique = false;
-			break;
-		}
-	}
-
-	return isUnique;
-}
-
 int lengthOfLongestSubstring(string s)
 {
-	const int stringLength = s.length();
 	int subLength = 0;
+	vector<int> chars(128);
 
-	for (int i = 0; i < stringLength; i++)
+	int right = 0, left = 0;
+
+	while (right < s.length())
 	{
-		for (int j = i; j < stringLength; j++)
+		char r = s[right];
+		chars[r]++;
+
+		while (chars[r] > 1)
 		{
-			if (allUnique(s, i, j))
-			{
-				subLength = max(subLength, j - i + 1);
-			}
+			char l = s[left];
+			chars[l]--;
+			left++;
 		}
+
+		subLength = max(subLength, right - left + 1);
+
+		right++;
 	}
 
 	return subLength;
