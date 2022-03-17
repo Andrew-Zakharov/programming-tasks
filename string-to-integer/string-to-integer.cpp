@@ -7,56 +7,164 @@
 
 using std::string;
 
+enum class StateType
+{
+	q0 = 0,
+	q1,
+	q2,
+	qd
+};
+
+class StateMachine
+{
+	public:
+		StateMachine() : state(StateType::q0), number(0), sign(1)
+		{
+
+		};
+
+		void Clear()
+		{
+			state = StateType::q0;
+			number = 0;
+			sign = 1;
+		}
+
+		int getNumber() const
+		{
+			return number;
+		};
+
+		StateType getState() const
+		{
+			return state;
+		};
+
+		bool isDigit(char c)
+		{
+			return (c >= '0' && c <= '9');
+		}
+
+		bool isSign(char c)
+		{
+			return ((c == '+') || (c == '-'));
+		}
+
+		bool isOverflow(int digit)
+		{
+			return ((number > INT_MAX / 10) || (number == INT_MAX / 10 && digit > INT_MAX % 10));
+		}
+
+		void toQd()
+		{
+			number *= sign;
+
+			state = StateType::qd;
+		}
+
+		void addToNumber(int digit)
+		{
+			if (isOverflow(digit))
+			{
+				number  = (sign == -1) ? INT_MIN : INT_MAX;
+
+				//toQd();
+				state = StateType::qd;
+			}
+			else
+			{
+				number = number * 10 + digit;
+			}
+		}
+
+		void transition(char c)
+		{
+			switch (state)
+			{
+				case StateType::q0:
+				{
+					if (isSign(c))
+					{
+						sign = (c == '-') ? -1 : 1;
+						state = StateType::q1;
+					}
+					else
+					{
+						if (isDigit(c))
+						{
+							int digit = c - '0';
+							addToNumber(digit);
+							state = StateType::q2;
+						}
+						else
+						{
+							if(c != ' ')
+								toQd();
+						}
+					}
+				}break;
+
+				case StateType::q1:
+				{
+					if (isDigit(c))
+					{
+						int digit = c - '0';
+						addToNumber(digit);
+						state = StateType::q2;
+					}
+					else
+					{
+						toQd();
+					}
+				}break;
+
+				case StateType::q2:
+				{
+					if (isDigit(c))
+					{
+						int digit = c - '0';
+						addToNumber(digit);
+					}
+					else
+					{
+						toQd();
+					}
+				}break;
+			}
+		}
+
+	private:
+		StateType state;
+		int number;
+		int sign;
+};
 
 int myAtoi(string s)
 {
-	int number = 0;
-	int sign = 1;
-	int i = 0;
-	int length = s.length();
+	StateMachine machine;
 
-	while (i < length && s[i] == ' ') i++;
-
-	if (i < length && s[i] == '-')
+	for (int i = 0; machine.getState() != StateType::qd; i++)
 	{
-		sign = -1;
-		i++;
-	}
-	else
-	{
-		if (i < length && s[i] == '+')
-		{
-			sign = 1;
-			i++;
-		}
+		machine.transition(s[i]);
 	}
 
-	while (i < length && s[i] >= '0' && s[i] <= '9')
-	{
-		int digit = s[i] - '0';
-
-		if ((number > INT_MAX / 10) || (number == INT_MAX / 10 && digit > INT_MAX % 10))
-		{
-			return sign == 1 ? INT_MAX : INT_MIN;
-		}
-
-		number = number * 10 + digit;
-		i++;
-	}
-
-	number = number * sign;
-
-	return number;
+	return machine.getNumber();
 }
 
 int main()
 {
 	std::vector<std::string> strings =
 	{
+		"-2147483647",
+		"",
+		"0032",
+		"       -56",
 		"42",
 		"-42",
 		"+-12",
-		"2147483646"
+		"2147483646",
+		"        123     asdasd    345",
+		"        +-123 sadasd   "
 	};
 
 	for (std::string& str : strings)
