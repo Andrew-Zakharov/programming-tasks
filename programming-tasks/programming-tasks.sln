@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "group-anagrams", "..\group-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "longest-substring-without-repeating", "..\longest-substring-without-repeating\longest-substring-without-repeating.vcxproj", "{F8CBB55C-1EBF-416E-84A1-9DC5C3C3BC26}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "string-to-integer", "..\string-to-integer\string-to-integer.vcxproj", "{58821BBF-F588-423D-943C-D4701D281589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{F8CBB55C-1EBF-416E-84A1-9DC5C3C3BC26}.Release|x64.Build.0 = Release|x64
 		{F8CBB55C-1EBF-416E-84A1-9DC5C3C3BC26}.Release|x86.ActiveCfg = Release|Win32
 		{F8CBB55C-1EBF-416E-84A1-9DC5C3C3BC26}.Release|x86.Build.0 = Release|Win32
+		{58821BBF-F588-423D-943C-D4701D281589}.Debug|x64.ActiveCfg = Debug|x64
+		{58821BBF-F588-423D-943C-D4701D281589}.Debug|x64.Build.0 = Debug|x64
+		{58821BBF-F588-423D-943C-D4701D281589}.Debug|x86.ActiveCfg = Debug|Win32
+		{58821BBF-F588-423D-943C-D4701D281589}.Debug|x86.Build.0 = Debug|Win32
+		{58821BBF-F588-423D-943C-D4701D281589}.Release|x64.ActiveCfg = Release|x64
+		{58821BBF-F588-423D-943C-D4701D281589}.Release|x64.Build.0 = Release|x64
+		{58821BBF-F588-423D-943C-D4701D281589}.Release|x86.ActiveCfg = Release|Win32
+		{58821BBF-F588-423D-943C-D4701D281589}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
