@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 std::vector<int> decimalToBinary(int decimal)
 {
@@ -22,13 +23,32 @@ std::vector<int> decimalToBinary(int decimal)
     return std::vector<int>(binary.crbegin(), binary.crend());
 }
 
+int binaryToDecimal(std::vector<int> binary)
+{
+    int decimal = 0;
+    int rank = 0;
+
+    for (auto it = binary.crbegin(); it != binary.crend(); it++)
+    {
+        decimal += *it * std::pow(2, rank);
+        rank++;
+    }
+
+    return decimal;
+}
+
 int main()
 {
+    std::vector<int> binary = decimalToBinary(110);
     
-    for (auto bit : decimalToBinary(110))
+    for (auto bit : binary)
     {
         std::cout << bit;
     }
+
+    std::cout << std::endl;
+
+    std::cout << binaryToDecimal(binary);
 
     return 0;
 }
