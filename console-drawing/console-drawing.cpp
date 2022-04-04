@@ -5,28 +5,21 @@
 
 void upSideDownTriangle(int baseLength)
 {
-    int column = baseLength * 2;
-    int level = 0;
+    int hashRangeStart = 0;
+    int hashRangeEnd = baseLength - 1;
 
-    for (int i = 0; i < baseLength; i++)
+    while (hashRangeEnd > hashRangeStart)
     {
-        for (int k = 0; k < level; k++)
+        for (int i = 0; i < baseLength; i++)
         {
-            std::cout << ' ';
+            char symbol = (i >= hashRangeStart && i <= hashRangeEnd) ? '#' : ' ';
+
+            std::cout << symbol;
         }
 
-        for (int j = level; j < column - level; j++)
-        {
-            std::cout << '#';
-        }
-
-        for (int k = 0; k < level; k++)
-        {
-            std::cout << ' ';
-        }
-
-        std::cout << std::endl;
-        level++;
+        hashRangeStart++;
+        hashRangeEnd--;
+        std::cout << '\n';
     }
 }
 
