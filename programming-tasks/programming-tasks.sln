@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "decode-message", "..\decode
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "console-drawing", "..\console-drawing\console-drawing.vcxproj", "{2BBD7ADD-8A99-44E2-9FFF-0FE4364023FE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "number-conversion", "..\number-conversion\number-conversion.vcxproj", "{5C404673-8F23-4881-B670-9497539FE39B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -91,6 +93,14 @@ Global
 		{2BBD7ADD-8A99-44E2-9FFF-0FE4364023FE}.Release|x64.Build.0 = Release|x64
 		{2BBD7ADD-8A99-44E2-9FFF-0FE4364023FE}.Release|x86.ActiveCfg = Release|Win32
 		{2BBD7ADD-8A99-44E2-9FFF-0FE4364023FE}.Release|x86.Build.0 = Release|Win32
+		{5C404673-8F23-4881-B670-9497539FE39B}.Debug|x64.ActiveCfg = Debug|x64
+		{5C404673-8F23-4881-B670-9497539FE39B}.Debug|x64.Build.0 = Debug|x64
+		{5C404673-8F23-4881-B670-9497539FE39B}.Debug|x86.ActiveCfg = Debug|Win32
+		{5C404673-8F23-4881-B670-9497539FE39B}.Debug|x86.Build.0 = Debug|Win32
+		{5C404673-8F23-4881-B670-9497539FE39B}.Release|x64.ActiveCfg = Release|x64
+		{5C404673-8F23-4881-B670-9497539FE39B}.Release|x64.Build.0 = Release|x64
+		{5C404673-8F23-4881-B670-9497539FE39B}.Release|x86.ActiveCfg = Release|Win32
+		{5C404673-8F23-4881-B670-9497539FE39B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
