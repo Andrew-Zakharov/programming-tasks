@@ -8,7 +8,7 @@ void upSideDownTriangle(int baseLength)
     int hashRangeStart = 0;
     int hashRangeEnd = baseLength - 1;
 
-    while (hashRangeEnd > hashRangeStart)
+    while (hashRangeEnd >= hashRangeStart)
     {
         for (int i = 0; i < baseLength; i++)
         {
