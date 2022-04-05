@@ -37,18 +37,111 @@ int binaryToDecimal(std::vector<int> binary)
     return decimal;
 }
 
-int main()
+std::vector<char> binaryToHex(const std::vector<int>& binary)
+{
+    std::vector<char> hex{ 0 };
+    std::vector<std::vector<int>> groups{ 0 };
+    constexpr int GROUP_LENGTH = 4;
+    std::vector<int> group;
+    size_t count = 0;
+
+    for (auto it = binary.crbegin(); it != binary.crend(); it++)
+    {
+        group.push_back(*it);
+        count++;
+
+        if (count == GROUP_LENGTH)
+        {
+            groups.push_back(std::vector<int>(group.crbegin(), group.crend()));
+            group.clear();
+            count = 0;
+        }
+    }
+
+
+    for (int i = group.size(); i < GROUP_LENGTH; i++)
+    {
+        group.push_back(0);
+    }
+
+    groups.push_back(std::vector<int>(group.crbegin(), group.crend()));
+
+    for (auto group : groups)
+    {
+        int digit = binaryToDecimal(group);
+
+        switch (digit)
+        {
+            case 10:
+            {
+                hex.push_back('A');
+            }break;
+
+            case 11:
+            {
+                hex.push_back('B');
+            }break;
+
+            case 12:
+            {
+                hex.push_back('C');
+            }break;
+
+
+            case 13:
+            {
+                hex.push_back('D');
+            }break;
+
+            case 14:
+            {
+                hex.push_back('E');
+            }break;
+
+            case 15:
+            {
+                hex.push_back('F');
+            }break;
+
+            default:
+            {
+                hex.push_back((char)(digit + '0'));
+            }
+        }
+    }
+
+    return hex;
+}
+
+void testDecimalToBinary()
 {
     std::vector<int> binary = decimalToBinary(110);
-    
+
     for (auto bit : binary)
     {
         std::cout << bit;
     }
 
     std::cout << std::endl;
+}
 
-    std::cout << binaryToDecimal(binary);
+void testBinaryToDecimal()
+{
+    std::vector<int> binary = { 0, 1, 1, 1, 1, 1, 1, 0 };
+
+    std::cout << binaryToDecimal(binary) << std::endl;
+}
+
+void testBinaryToHex()
+{
+    std::vector<int> binary = { 1, 0, 1, 0, 1 };
+
+    binaryToHex(binary);
+}
+
+int main()
+{
+    testBinaryToHex();
 
     return 0;
 }
