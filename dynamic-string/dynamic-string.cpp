@@ -51,7 +51,7 @@ char* append(const char* str, char c)
 
 char charAt(const char* str, unsigned int index)
 {
-    return 0;
+    return str[index];
 }
 
 void test_dynamic_string()
