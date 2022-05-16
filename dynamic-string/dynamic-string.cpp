@@ -46,7 +46,21 @@ char* concatenate(const char* first, const char* second)
 
 char* append(const char* str, char c)
 {
-    return nullptr;
+    char* result = nullptr;
+    const unsigned int size = get_size(str);
+    unsigned int i = 0;
+
+    result = new char[size + 2];
+
+    for (i = 0; i < size; i++)
+    {
+        result[i] = str[i];
+    }
+
+    result[i++] = c;
+    result[i] = '\0';
+
+    return result;
 }
 
 char charAt(const char* str, unsigned int index)
@@ -60,7 +74,8 @@ void test_dynamic_string()
     const char* s2 = "def";
 
     std::cout << get_size(s1) << std::endl;
-    std::cout << concatenate(s1, s2);
+    std::cout << concatenate(s1, s2) << std::endl;
+    std::cout << append(s1, 'd');
 }
 
 int main()
