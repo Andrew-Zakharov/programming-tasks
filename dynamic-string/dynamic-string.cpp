@@ -1,5 +1,8 @@
 #include <iostream>
 
+#define NULL_SYMBOL_SIZE 1
+
+//size with null symbol
 unsigned int get_size(const char* str)
 {
     unsigned int size = 0;
@@ -20,23 +23,21 @@ char* concatenate(const char* first, const char* second)
 {
     char* result = nullptr;
     unsigned int i = 0;
+    unsigned int j = 0;
 
     const unsigned int first_size = get_size(first);
     const unsigned int second_size = get_size(second);
 
-    result = new char[first_size + second_size + 1];
+    result = new char[first_size + second_size + NULL_SYMBOL_SIZE];
 
-    for (i = 0; i < (first_size + second_size); i++)
+    for (i = 0; i < first_size; i++)
     {
-        if (i < first_size)
-        {
-            result[i] = first[i];
-        }
-        else
-        {
-            result[i] = second[i - first_size];
-        }
-        
+        result[i] = first[i];
+    }
+
+    for (j = 0; j < second_size; j++)
+    {
+        result[i++] = second[j];
     }
 
     result[i] = '\0';
@@ -50,7 +51,7 @@ char* append(const char* str, char c)
     const unsigned int size = get_size(str);
     unsigned int i = 0;
 
-    result = new char[size + 2];
+    result = new char[size + 1 + NULL_SYMBOL_SIZE];
 
     for (i = 0; i < size; i++)
     {
