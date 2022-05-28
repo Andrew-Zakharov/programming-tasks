@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dynamic-string", "..\dynami
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "two-sum", "..\two-sum\two-sum.vcxproj", "{2D031C0D-0615-4AD1-B04A-EF653FFE59BC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graph", "..\graph\graph.vcxproj", "{DFB6BF92-7733-4236-8006-37CE3C1546A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -121,6 +123,14 @@ Global
 		{2D031C0D-0615-4AD1-B04A-EF653FFE59BC}.Release|x64.Build.0 = Release|x64
 		{2D031C0D-0615-4AD1-B04A-EF653FFE59BC}.Release|x86.ActiveCfg = Release|Win32
 		{2D031C0D-0615-4AD1-B04A-EF653FFE59BC}.Release|x86.Build.0 = Release|Win32
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Debug|x64.ActiveCfg = Debug|x64
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Debug|x64.Build.0 = Debug|x64
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Debug|x86.ActiveCfg = Debug|Win32
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Debug|x86.Build.0 = Debug|Win32
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x64.ActiveCfg = Release|x64
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x64.Build.0 = Release|x64
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x86.ActiveCfg = Release|Win32
+		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
