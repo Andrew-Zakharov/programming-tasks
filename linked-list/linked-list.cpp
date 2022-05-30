@@ -43,6 +43,7 @@ class LinkedList
             head = new Node(value);
             tail = head;
             length = 0;
+            preHead.setNext(head);
         }
 
         ~LinkedList()
@@ -52,18 +53,23 @@ class LinkedList
 
         void append(int value)
         {
-            tail->setNext(new Node(value));
-            tail = tail->getNext();
+            tail = append(tail, value);
+        }
+
+        Node* append(Node* node, int value)
+        {
+            Node* hold = node->getNext();
+
+            node->setNext(new Node(value));
+            node->getNext()->setNext(hold);
             length++;
+
+            return node->getNext();
         }
 
         void prepend(int value)
         {
-            Node* newHead = new Node(value);
-
-            newHead->setNext(head);
-            head = newHead;
-            length++;
+            head = append(&preHead, value);
         }
 
         void print()
@@ -81,22 +87,19 @@ class LinkedList
 
         void insert(int index, int value)
         {
-            Node* currentNode = head;
-            int i = 0;
-
-            if (index == 0)
+            switch (index)
             {
-                prepend(value);
-            }
-            else
-            {
-                currentNode = traverse(index);
+                case 0:
+                {
+                    prepend(value);
+                }break;
 
-                Node* temp = currentNode->getNext();
+                default:
+                {
+                    Node* insertedNode = append(traverse(index), value);
 
-                currentNode->setNext(new Node(value));
-                currentNode->getNext()->setNext(temp);
-                length++;
+                    tail = (length == index % length) ? insertedNode : tail;
+                }
             }
         }
 
@@ -122,6 +125,7 @@ class LinkedList
     private:
         Node* head = nullptr;
         Node* tail = nullptr;
+        Node preHead;
         int length;
 };
 
