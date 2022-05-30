@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "two-sum", "..\two-sum\two-s
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graph", "..\graph\graph.vcxproj", "{DFB6BF92-7733-4236-8006-37CE3C1546A9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "linked-list", "..\linked-list\linked-list.vcxproj", "{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -131,6 +133,14 @@ Global
 		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x64.Build.0 = Release|x64
 		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x86.ActiveCfg = Release|Win32
 		{DFB6BF92-7733-4236-8006-37CE3C1546A9}.Release|x86.Build.0 = Release|Win32
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Debug|x64.ActiveCfg = Debug|x64
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Debug|x64.Build.0 = Debug|x64
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Debug|x86.Build.0 = Debug|Win32
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Release|x64.ActiveCfg = Release|x64
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Release|x64.Build.0 = Release|x64
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Release|x86.ActiveCfg = Release|Win32
+		{BD48ED3B-4EFC-4024-8175-E8CA81C42FC9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
