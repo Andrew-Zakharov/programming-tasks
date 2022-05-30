@@ -42,7 +42,7 @@ class LinkedList
         {
             head = new Node(value);
             tail = head;
-            length = 0;
+            length = 1;
             preHead.setNext(head);
         }
 
@@ -82,24 +82,23 @@ class LinkedList
                 currentNode = currentNode->getNext();
             }
 
+            std::cout << "( head: " << head->getValue() << ", tail: " << tail->getValue() << ")";
+
             std::cout << std::endl;
         }
 
         void insert(int index, int value)
         {
-            switch (index)
+            Node* insertedNode = append(traverse(index), value);
+
+            if (index >= (length - 1))
             {
-                case 0:
-                {
-                    prepend(value);
-                }break;
+                tail = insertedNode;
+            }
 
-                default:
-                {
-                    Node* insertedNode = append(traverse(index), value);
-
-                    tail = (length == index % length) ? insertedNode : tail;
-                }
+            if (index == 0)
+            {
+                head = insertedNode;
             }
         }
 
@@ -113,6 +112,11 @@ class LinkedList
                 return tail;
             }
 
+            if (index == 0)
+            {
+                return &preHead;
+            }
+
             while (currentNode && i < (index - 1))
             {
                 currentNode = currentNode->getNext();
@@ -120,6 +124,28 @@ class LinkedList
             }
 
             return currentNode;
+        }
+
+        void remove(int index)
+        {
+            Node* prevNode = traverse(index);
+            Node* removed = prevNode->getNext();
+
+            prevNode->setNext(prevNode->getNext()->getNext());
+            removed->setNext(nullptr);
+
+            delete(removed);
+            
+
+            if (index == (length - 1)) {
+                tail = prevNode;
+            }
+
+            if (index == 0) {
+                head = prevNode->getNext();
+            }
+
+            length--;
         }
 
     private:
@@ -148,6 +174,26 @@ int main()
     l.print();
 
     l.insert(0, 300);
+
+    l.print();
+
+    l.insert(1, 400);
+
+    l.print();
+
+    l.remove(0);
+
+    l.print();
+
+    l.remove(2);
+
+    l.print();
+
+    l.remove(4);
+
+    l.print();
+
+    l.remove(4);
 
     l.print();
 
