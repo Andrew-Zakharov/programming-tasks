@@ -42,6 +42,7 @@ class LinkedList
         {
             head = new Node(value);
             tail = head;
+            length = 0;
         }
 
         ~LinkedList()
@@ -53,6 +54,7 @@ class LinkedList
         {
             tail->setNext(new Node(value));
             tail = tail->getNext();
+            length++;
         }
 
         void prepend(int value)
@@ -61,6 +63,7 @@ class LinkedList
 
             newHead->setNext(head);
             head = newHead;
+            length++;
         }
 
         void print()
@@ -76,9 +79,50 @@ class LinkedList
             std::cout << std::endl;
         }
 
+        void insert(int index, int value)
+        {
+            Node* currentNode = head;
+            int i = 0;
+
+            if (index == 0)
+            {
+                prepend(value);
+            }
+            else
+            {
+                currentNode = traverse(index);
+
+                Node* temp = currentNode->getNext();
+
+                currentNode->setNext(new Node(value));
+                currentNode->getNext()->setNext(temp);
+                length++;
+            }
+        }
+
+        Node* traverse(int index)
+        {
+            Node* currentNode = head;
+            int i = 0;
+
+            if (index >= length)
+            {
+                return tail;
+            }
+
+            while (currentNode && i < (index - 1))
+            {
+                currentNode = currentNode->getNext();
+                i++;
+            }
+
+            return currentNode;
+        }
+
     private:
         Node* head = nullptr;
         Node* tail = nullptr;
+        int length;
 };
 
 int main()
@@ -88,6 +132,18 @@ int main()
     l.append(2);
     l.append(3);
     l.prepend(0);
+
+    l.print();
+
+    l.insert(2, 100);
+
+    l.print();
+
+    l.insert(10, 200);
+
+    l.print();
+
+    l.insert(0, 300);
 
     l.print();
 
