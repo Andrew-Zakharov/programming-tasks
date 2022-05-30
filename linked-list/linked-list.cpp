@@ -24,6 +24,11 @@ class Node
             return next;
         }
 
+        int getValue() const
+        {
+            return value;
+        }
+
     private:
         int value;
         Node* next = nullptr;
@@ -58,6 +63,19 @@ class LinkedList
             head = newHead;
         }
 
+        void print()
+        {
+            Node* currentNode = head;
+
+            while (currentNode)
+            {
+                std::cout << currentNode->getValue() << ' ';
+                currentNode = currentNode->getNext();
+            }
+
+            std::cout << std::endl;
+        }
+
     private:
         Node* head = nullptr;
         Node* tail = nullptr;
@@ -70,6 +88,8 @@ int main()
     l.append(2);
     l.append(3);
     l.prepend(0);
+
+    l.print();
 
     return 0;
 }
