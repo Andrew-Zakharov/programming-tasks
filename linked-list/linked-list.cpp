@@ -89,7 +89,7 @@ class LinkedList
 
         void insert(int index, int value)
         {
-            Node* insertedNode = append(traverse(index), value);
+            Node* insertedNode = append(getPrevNode(index), value);
 
             if (index >= (length - 1))
             {
@@ -102,7 +102,7 @@ class LinkedList
             }
         }
 
-        Node* traverse(int index)
+        Node* getPrevNode(int index)
         {
             Node* currentNode = head;
             int i = 0;
@@ -128,13 +128,13 @@ class LinkedList
 
         void remove(int index)
         {
-            Node* prevNode = traverse(index);
-            Node* removed = prevNode->getNext();
+            Node* prevNode = getPrevNode(index);
+            Node* unwantedNode = prevNode->getNext();
 
             prevNode->setNext(prevNode->getNext()->getNext());
-            removed->setNext(nullptr);
+            unwantedNode->setNext(nullptr);
 
-            delete(removed);
+            delete(unwantedNode);
             
 
             if (index == (length - 1)) {
