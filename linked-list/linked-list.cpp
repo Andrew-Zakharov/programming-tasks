@@ -169,8 +169,7 @@ class LinkedList
             Node* first = head;
             Node* second = first->getNext();
 
-            tail = first;
-            first->setNext(nullptr);
+            tail = head;
 
             while (second)
             {
@@ -181,6 +180,7 @@ class LinkedList
                 second = temp;
             }
 
+            head->setNext(nullptr);
             head = first;
         }
 
