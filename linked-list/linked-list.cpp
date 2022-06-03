@@ -159,6 +159,11 @@ class LinkedList
             length--;
         }
 
+        Node* getHead()
+        {
+            return head;
+        }
+
     private:
         Node* head = nullptr;
         Node* tail = nullptr;
@@ -259,6 +264,16 @@ class DoublyLinkedList
         int length = 0;
 };
 
+void reverse_print(Node* node)
+{
+    if (node->getNext())
+    {
+        reverse_print(node->getNext());
+    }
+
+    std::cout << node->getValue() << ' ';
+}
+
 void test_linked_list()
 {
     LinkedList l(1);
@@ -322,9 +337,22 @@ void test_doubly_linked_list()
     l.print();
 }
 
+void test_reverse_print()
+{
+    LinkedList l(1);
+
+    l.append(2);
+    l.append(3);
+    l.prepend(0);
+
+    reverse_print(l.getHead());
+}
+
 int main()
 {
-    test_doubly_linked_list();
+    //test_doubly_linked_list();
+
+    test_reverse_print();
 
     return 0;
 }
