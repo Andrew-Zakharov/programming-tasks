@@ -19,9 +19,19 @@ class Node
             this->next = next;
         }
 
+        void setPrev(Node* prev)
+        {
+            this->prev = prev;
+        }
+
         Node* getNext()
         {
             return next;
+        }
+
+        Node* getPrev()
+        {
+            return prev;
         }
 
         int getValue() const
@@ -30,8 +40,9 @@ class Node
         }
 
     private:
-        int value;
+        int value = 0;
         Node* next = nullptr;
+        Node* prev = nullptr;
 };
 
 class LinkedList
@@ -155,7 +166,100 @@ class LinkedList
         int length;
 };
 
-int main()
+class DoublyLinkedList
+{
+    public:
+        DoublyLinkedList()
+        {
+
+        }
+
+        ~DoublyLinkedList()
+        {
+
+        }
+
+        void append(int value)
+        {
+            if (tail)
+            {
+                tail->setNext(new Node(value));
+                tail->getNext()->setPrev(tail);
+
+                tail = tail->getNext();
+            }
+            else
+            {
+                head = new Node(value);
+                tail = head;
+            }
+
+            length++;
+        }
+
+        void insert(int index, int value)
+        {
+            Node* node = traverseToIndex(index);
+
+            Node* newNode = new Node(value);
+
+            if (node == head)
+            {
+                newNode->setNext(node);
+                node->setPrev(newNode);
+
+                head = newNode;
+            }
+            else
+            {
+                newNode->setPrev(node->getPrev());
+                newNode->setNext(node);
+
+                node->getPrev()->setNext(newNode);
+            }
+        }
+
+        Node* traverseToIndex(int index)
+        {
+            Node* currentNode = head;
+            int i = 0;
+
+            if (index > length)
+            {
+                return tail;
+            }
+
+            while (i < index)
+            {
+                i++;
+                currentNode = currentNode->getNext();
+            }
+
+            return currentNode;
+        }
+
+        void print()
+        {
+            Node* currentNode = head;
+
+            while (currentNode)
+            {
+                std::cout << currentNode->getValue() << ' ';
+                currentNode = currentNode->getNext();
+            }
+
+            std::cout << "( head: " << head->getValue() << ", tail: " << tail->getValue() << ")";
+
+            std::cout << std::endl;
+        }
+
+    private:
+        Node* head = nullptr;
+        Node* tail = nullptr;
+        int length = 0;
+};
+
+void test_linked_list()
 {
     LinkedList l(1);
 
@@ -196,6 +300,31 @@ int main()
     l.remove(4);
 
     l.print();
+}
+
+void test_doubly_linked_list()
+{
+    DoublyLinkedList l;
+
+    l.append(1);
+    l.append(2);
+    l.append(3);
+    l.append(4);
+
+    l.print();
+
+    l.insert(2, 100);
+
+    l.print();
+
+    l.insert(0, 200);
+
+    l.print();
+}
+
+int main()
+{
+    test_doubly_linked_list();
 
     return 0;
 }
