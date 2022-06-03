@@ -1,5 +1,5 @@
 #include <iostream>
-#include <memory>
+#include <stack>
 
 class Node
 {
@@ -162,6 +162,36 @@ class LinkedList
         Node* getHead()
         {
             return head;
+        }
+
+        void reverse()
+        {
+            std::stack<Node*> nodesStack;
+            Node* current = head;
+
+            do
+            {
+                nodesStack.push(current);
+
+                current = current->getNext();
+            } while (current);
+
+            current = nodesStack.top();
+            nodesStack.pop();
+            head = current;
+
+            while (nodesStack.size() != 1)
+            {
+                current->setNext(nodesStack.top());
+                current = nodesStack.top();
+                nodesStack.pop();
+            }
+
+            current->setNext(nodesStack.top());
+            current = nodesStack.top();
+            tail = current;
+            current->setNext(nullptr);
+            nodesStack.pop();
         }
 
     private:
@@ -348,11 +378,28 @@ void test_reverse_print()
     reverse_print(l.getHead());
 }
 
+void test_reverse()
+{
+    LinkedList l(1);
+
+    l.append(2);
+    l.append(3);
+    l.prepend(0);
+
+    l.print();
+
+    l.reverse();
+
+    l.print();
+}
+
 int main()
 {
     //test_doubly_linked_list();
 
-    test_reverse_print();
+    //test_reverse_print();
+
+    test_reverse();
 
     return 0;
 }
