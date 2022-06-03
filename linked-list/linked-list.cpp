@@ -166,32 +166,22 @@ class LinkedList
 
         void reverse()
         {
-            std::stack<Node*> nodesStack;
-            Node* current = head;
+            Node* first = head;
+            Node* second = first->getNext();
 
-            do
+            tail = first;
+            first->setNext(nullptr);
+
+            while (second)
             {
-                nodesStack.push(current);
+                Node* temp = second->getNext();
+                second->setNext(first);
 
-                current = current->getNext();
-            } while (current);
-
-            current = nodesStack.top();
-            nodesStack.pop();
-            head = current;
-
-            while (nodesStack.size() != 1)
-            {
-                current->setNext(nodesStack.top());
-                current = nodesStack.top();
-                nodesStack.pop();
+                first = second;
+                second = temp;
             }
 
-            current->setNext(nodesStack.top());
-            current = nodesStack.top();
-            tail = current;
-            current->setNext(nullptr);
-            nodesStack.pop();
+            head = first;
         }
 
     private:
