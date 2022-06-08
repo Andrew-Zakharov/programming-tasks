@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
 
 class Node
 {
@@ -20,16 +21,6 @@ class Node
 
         }
 
-        void setNext(Node* next)
-        {
-            this->next = next;
-        }
-
-        Node* getNext()
-        {
-            return next;
-        }
-
         std::string getValue() const
         {
             return data;
@@ -42,7 +33,6 @@ class Node
 
     private:
         std::string data;
-        Node* next = nullptr;
 };
 
 class Stack
@@ -58,113 +48,63 @@ public:
 
     }
 
-    const Node* peek() const
+    const Node& peek() const
     {
-        return top;
+        return data.back();
     }
 
     void pop()
     {
-        switch (length)
-        {
-            case 0:
-            {
-
-            }break;
-
-            case 1:
-            {
-                delete(top);
-                top = nullptr;
-                bottom = nullptr;
-                length = 0;
-            }break;
-
-            default:
-            {
-                Node* poped = top;
-                top = top->getNext();
-
-                delete(poped);
-                length--;
-            }
-        }
+        data.pop_back();
     }
 
     void push(const std::string& data)
     {
-        Node* newNode = new Node(data);
-
-        if (isEmpty())
-        {
-            top = newNode;
-            bottom = top;
-        }
-        else
-        {
-            newNode->setNext(top);
-            top = newNode;
-        }
-
-        length++;
+        this->data.emplace_back(data);
     }
 
     bool isEmpty()
     {
-        return (length == 0);
+        return data.empty();
     }
 
     void print()
     {
-        Node* currentNode = top;
-        const std::string connector = "-->";
-        std::string removeConector;
-
-        removeConector += std::string(connector.length(), '\b') + std::string(connector.length(), ' ');
-
-        while (currentNode)
+        for (auto it = data.crbegin(); it != data.crend(); it++)
         {
-            std::cout << currentNode->getValue() << connector;
-            currentNode = currentNode->getNext();
+            std::cout << it->getValue() << ' ';
         }
 
-        std::cout << removeConector;
+        std::cout << std::endl;
     }
 
 private:
-    Node* top = nullptr;
-    Node* bottom = nullptr;
-    size_t length = 0;
+    std::vector<Node> data;
 };
-
-void destructive_print(Stack& s)
-{
-    while (!s.isEmpty())
-    {
-        std::cout << s.peek()->getValue() << ' ';
-        s.pop();
-    }
-
-    std::cout << std::endl;
-}
 
 void test_stack()
 {
     Stack s;
 
-s.push("a");
+    s.push("a");
     s.push("b");
     s.push("c");
 
-    //Node temp = s.peek();
+    std::cout << s.peek().getValue() << std::endl;
 
-    //destructive_print(s);
-    //print(s);
+    s.print();
 
-    std::string temp = s.peek()->getValue();
+    s.pop();
 
-    std::cout << temp << std::endl;
-    //s.print();
+    s.print();
+
+    s.pop();
+
+    s.print();
+
+    s.pop();
+
+    s.print();
 }
 
 int main()
