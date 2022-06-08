@@ -58,9 +58,9 @@ public:
 
     }
 
-    const Node& peek() const
+    const Node* peek() const
     {
-        return length ? *top : Node();
+        return top;
     }
 
     void pop()
@@ -141,7 +141,7 @@ void destructive_print(Stack& s)
 {
     while (!s.isEmpty())
     {
-        std::cout << s.peek().getValue() << ' ';
+        std::cout << s.peek()->getValue() << ' ';
         s.pop();
     }
 
@@ -152,15 +152,19 @@ void test_stack()
 {
     Stack s;
 
-//s.push("a");
-    //s.push("b");
-   // s.push("c");
+s.push("a");
+    s.push("b");
+    s.push("c");
 
-    Node temp = s.peek();
+    //Node temp = s.peek();
 
     //destructive_print(s);
     //print(s);
-    s.print();
+
+    std::string temp = s.peek()->getValue();
+
+    std::cout << temp << std::endl;
+    //s.print();
 }
 
 int main()
