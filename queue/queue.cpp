@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stack>
 
 class Node
 {
@@ -42,80 +43,47 @@ public:
 
     }
 
-    Node* peek()
+    Node peek()
     {
-        return first;
+        if (first.empty())
+        {
+            move(last, first);
+        }
+
+        return first.top();
     }
 
     void enqueue(const std::string& data)
     {
-        Node* newNode = new Node(data);
-
-        switch (length)
-        {
-            case 0:
-            {
-                first = newNode;
-                last = first;
-            }break;
-
-            default:
-            {
-                last->setNext(newNode);
-                last = newNode;
-            } 
+        if (last.empty()) {
+            move(first, last);
         }
 
-        length++;
+        last.emplace(data);
     }
 
-    void dequeue()
+    Node dequeue()
     {
-        switch (length)
-        {
-            case 0:
-            {
+        Node result = peek();
 
-            }break;
+        first.pop();
 
-            case 1:
-            {
-                delete(first);
-
-                first = nullptr;
-                last = nullptr;
-                length = 0;
-            }break;
-
-            default:
-            {
-                Node* holdingPointer = first;
-
-                first = first->getNext();
-
-                delete(holdingPointer);
-                length--;
-            }
-        }
+        return result;
     }
 
-    void print()
+    void move(std::stack<Node>& source, std::stack<Node>& destination)
     {
-        Node* current = first;
+        size_t size = source.size();
 
-        while (current)
-        {
-            std::cout << current->getData() << ' ';
-            current = current->getNext();
+        for (size_t i = 0; i < size; i++) {
+            destination.push(source.top());
+            source.pop();
         }
-
-        std::cout << std::endl;
     }
 
 private:
-    Node* first = nullptr;
-    Node* last = nullptr;
-    size_t length = 0;
+    std::stack<Node> first; // first element is on top
+    std::stack<Node> last; //last element is on top
 };
 
 void test_queue()
@@ -127,27 +95,27 @@ void test_queue()
     q.enqueue("c");
     q.enqueue("d");
 
-    std::cout << q.peek()->getData() << std::endl;
+    std::cout << q.peek().getData() << std::endl;
 
-    q.print();
-
-    q.dequeue();
-
-    std::cout << q.peek()->getData() << std::endl;
-
-    q.print();
+    //q.print();
 
     q.dequeue();
 
-    std::cout << q.peek()->getData() << std::endl;
+    std::cout << q.peek().getData() << std::endl;
 
-    q.print();
+    //q.print();
 
     q.dequeue();
 
-    std::cout << q.peek()->getData() << std::endl;
+    std::cout << q.peek().getData() << std::endl;
 
-    q.print();
+    //q.print();
+
+    q.dequeue();
+
+    std::cout << q.peek().getData() << std::endl;
+
+    //q.print();
 }
 
 int main()
