@@ -83,6 +83,22 @@ public:
         return node;
     }
 
+    Node* lookup(int data) {
+        Node* current = root;
+
+        while (current && (current->getData() != data)) {
+            if (data > current->getData()) {
+                current = current->getRight();
+            }
+
+            if (data < current->getData()) {
+                current = current->getLeft();
+            }
+        }
+
+        return current;
+    }
+
 private:
     Node* root = nullptr;
 };
@@ -97,10 +113,11 @@ void test_bst() {
     b.insert(1);
     b.insert(15);
     b.insert(6);
+
+    Node* temp  = b.lookup(9);
 }
 
-int main()
-{
+int main() {
     test_bst();
 
     return 0;
