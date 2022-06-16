@@ -160,10 +160,8 @@ public:
 
             std::cout << (isLeft ? "L--" : "R--");
 
-            // print the value of the node
             std::cout << node->getData() << std::endl;
 
-            // enter the next tree level - left and right branch
             print_horizontally_recursive(prefix + (isLeft ? "|   " : "    "), node->getLeft(), true);
             print_horizontally_recursive(prefix + (isLeft ? "|   " : "    "), node->getRight(), false);
         }
