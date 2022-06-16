@@ -202,6 +202,27 @@ public:
         }
     }
 
+    void inorder(Node* node, std::vector<int>& v) {
+        if (!node) {
+            return;
+        }
+
+        inorder(node->getLeft(), v);
+
+        //std::cout << node->getData() << ' ';
+        v.push_back(node->getData());
+
+        inorder(node->getRight(), v);
+    }
+
+    std::vector<int> inorder() {
+        std::vector<int> temp;
+
+        inorder(root, temp);
+
+        return temp;
+    }
+
     void remove(int data) {
         root = remove_recursive(root, data);
     }
@@ -223,7 +244,11 @@ void test_bst() {
         b.insert(n);
     }
 
-    b.print();
+    std::vector<int> temp = b.inorder();
+
+    //b.inorder();
+
+    /*b.print();
     b.remove(30);
 
 
@@ -239,7 +264,7 @@ void test_bst() {
 
     b.remove(38);
 
-    b.print();
+    b.print();*/
 }
 
 int main() {
