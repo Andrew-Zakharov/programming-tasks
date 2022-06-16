@@ -152,7 +152,7 @@ public:
         return node;
     }
 
-    void printBT(const std::string& prefix, Node* node, bool isLeft)
+    void print_horizontally_recursive(const std::string& prefix, Node* node, bool isLeft)
     {
         if (node != nullptr)
         {
@@ -164,37 +164,13 @@ public:
             std::cout << node->getData() << std::endl;
 
             // enter the next tree level - left and right branch
-            printBT(prefix + (isLeft ? "|   " : "    "), node->getLeft(), true);
-            printBT(prefix + (isLeft ? "|   " : "    "), node->getRight(), false);
+            print_horizontally_recursive(prefix + (isLeft ? "|   " : "    "), node->getLeft(), true);
+            print_horizontally_recursive(prefix + (isLeft ? "|   " : "    "), node->getRight(), false);
         }
-    }
-
-    void print(Node* node, int height) {
-
-        for (int i = 0; i < height; i++) {
-            std::cout << '\t';
-        }
-
-        std::cout << node->getData() << std::endl;
-
-        if (node && node->getLeft()) {
-            height++;
-            print(node->getLeft(), height);
-        }
-
-        if (node && node->getRight()) {
-            print(node->getRight(), height);
-        }
-
-        
     }
 
     void print() {
-        int height = 0;
-        Node* node = root;
-
-        //print(node, height);
-        printBT("", root, false);
+        print_horizontally_recursive("", root, false);
     }
 
     Node* remove_recursive(Node* root, int data) {
@@ -203,10 +179,10 @@ public:
         }
 
         if (data > root->getData()) {
-            root = remove_recursive(root->getRight(), data);
+            root->setRight(remove_recursive(root->getRight(), data));
         }
         else if (data < root->getData()) {
-            root = remove_recursive(root->getLeft(), data);
+            root->setLeft(remove_recursive(root->getLeft(), data));
         }
         else {
             if (root->getLeft() == nullptr) {
@@ -229,97 +205,7 @@ public:
     }
 
     void remove(int data) {
-        Node* exile = lookup(data);
-
-        if (exile) {
-            Node* successor = getSuccessor(exile);
-            Node* predecessor = getPredecessor(exile);
-            Node* parent = getParent(exile);
-            
-            if (isRoot(exile)) {
-                if (successor) {
-                    Node* successorParent = getParent(successor);
-
-                    if (successorParent == exile) {
-                        //successor->setRight(exile->getRight());
-                        successor->setLeft(exile->getLeft());
-                    }
-                    else {
-                        successorParent->setLeft(successor->getRight());
-                        successor->setRight(exile->getRight());
-                        successor->setLeft(exile->getLeft());
-                    }
-                    //successorParent->setLeft(successor->getRight());
-
-                    root = successor;
-                }
-                else if (predecessor) {
-                    Node* predecessorParent = getParent(predecessor);
-
-                    if (predecessorParent == exile) {
-
-                    }
-                    else {
-                        predecessorParent->setRight(predecessor->getLeft());
-
-                        predecessor->setRight(exile->getRight());
-                        predecessor->setLeft(exile->getLeft());
-                    }
-
-                    root = predecessor;
-                }
-                else {
-
-                }
-            }
-
-            /*if (exile->isLeaf()) {
-                if (parent->getRight() == exile) {
-                    parent->setRight(nullptr);
-                }
-
-                if (parent->getLeft() == exile) {
-                    parent->setLeft(nullptr);
-                }
-            }
-            else if (exile->getRight() && !exile->getLeft()) {
-                Node* successorParent = getParent(successor);
-
-                successorParent->setLeft(successor->getLeft());
-
-                if (parent->getRight() == exile) {
-                    parent->setRight(successor);
-                }
-
-                if (parent->getLeft() == exile) {
-                    parent->setLeft(successor);
-                }
-
-                successor->setLeft(exile->getLeft());
-                successor->setRight(exile->getRight());
-            }
-            else if (!exile->getRight() && exile->getLeft()) {
-                Node* predecessorParent = getParent(predecessor);
-
-                predecessorParent->setLeft(predecessor->getLeft());
-
-                if (parent->getRight() == exile) {
-                    parent->setRight(predecessor);
-                }
-
-                if (parent->getLeft() == exile) {
-                    parent->setLeft(predecessor);
-                }
-
-                predecessor->setLeft(exile->getLeft());
-                predecessor->setRight(exile->getRight());
-            }
-            else {
-
-            }*/
-
-            delete exile;
-        }
+        root = remove_recursive(root, data);
     }
 
     bool isRoot(const Node* node) const {
@@ -333,29 +219,29 @@ private:
 void test_bst() {
     BST b;
 
-    //std::vector<int> data = { 10, 20, 50, 60, 15, 17, 30, 40, 9, 6 };
     std::vector<int> data = { 30, 40, 20, 37, 38, 25 };
-
-    /*b.insert(9);
-    b.insert(20);
-    b.insert(100);
-    b.insert(4);
-    b.insert(1);
-    b.insert(15);
-    b.insert(6);*/
 
     for (int n : data) {
         b.insert(n);
     }
 
-    //b.insert()
     b.print();
-   // b.remove(30);
-   // b.remove(37);
-   // b.remove(38);
-   // b.remove(40);
-    //b.remove(100);
-    //Node* temp  = b.lookup(9);
+    b.remove(30);
+
+
+    b.print();
+
+    b.remove(37);
+
+    b.print();
+
+    b.remove(40);
+
+    b.print();
+
+    b.remove(38);
+
+    b.print();
 }
 
 int main() {
