@@ -158,7 +158,12 @@ public:
         {
             std::cout << prefix;
 
-            std::cout << (isLeft ? "L--" : "R--");
+            if (node == root) {
+                std::cout << "---";
+            }
+            else {
+                std::cout << (isLeft ? "L--" : "R--");
+            }
 
             std::cout << node->getData() << std::endl;
 
@@ -198,6 +203,81 @@ public:
 
                 root->setData(successor->getData());
                 root->setRight(remove_recursive(root->getRight(), successor->getData()));
+            }
+        }
+    }
+
+    void remove_iterative(int data) {
+        Node* current = root;
+        Node* parent = nullptr;
+        bool found = false;
+
+        while (current && !found) {
+            if (data > current->getData()) {
+                parent = current;
+                current = current->getRight();
+            } 
+            else if (data < current->getData()) {
+                parent = current;
+                current = current->getLeft();
+            }
+            else if (data == current->getData()) {
+                found = true;
+            }
+        }
+
+        if (found) {
+            if (current->getRight() == nullptr) {
+                if (parent == nullptr) {
+                    root = current->getLeft();
+                }
+                else {
+                    if (current->getData() < parent->getData()) {
+                        parent->setLeft(current->getLeft());
+                    }
+                    else if (current->getData() > parent->getData()) {
+                        parent->setRight(current->getLeft());
+                    }
+                }
+            }
+            else if (current->getLeft() == nullptr) {
+                current->getRight()->setLeft(current->getLeft());
+                if (parent == nullptr) {
+                    root = current->getRight();
+                }
+                else {
+                    if (current->getData() < parent->getData()) {
+                        parent->setLeft(current->getRight());
+                    }
+                    else if(current->getData() > parent->getData()) {
+                        parent->setRight(current->getRight());
+                    }
+                }
+            }
+            else {
+                Node* successor = current->getRight()->getLeft();
+                Node* successorParent = current->getRight();
+
+                while (successor->getLeft() != nullptr) {
+                    successorParent = successor;
+                    successor = successor->getLeft();
+                }
+
+                successorParent->setLeft(successor->getRight());
+                successor->setLeft(current->getLeft());
+                successor->setRight(current->getRight());
+
+                if (parent == nullptr) {
+                    this->root = successor;
+                }
+                else {
+                    if (current->getData() < parent->getData()) {
+                        parent->setLeft(successor);
+                    }
+                    else if(current->getData() > parent->getData()) {
+                        parent->setRight(successor);
+                    }
+                }
             }
         }
     }
@@ -244,27 +324,33 @@ void test_bst() {
         b.insert(n);
     }
 
-    std::vector<int> temp = b.inorder();
+    //std::vector<int> temp = b.inorder();
 
     //b.inorder();
 
-    /*b.print();
+    b.print();
     b.remove(30);
 
 
     b.print();
 
+    std::cout << std::endl;
+
     b.remove(37);
 
     b.print();
+
+    std::cout << std::endl;
 
     b.remove(40);
 
     b.print();
 
+    std::cout << std::endl;
+
     b.remove(38);
 
-    b.print();*/
+    b.print();
 }
 
 int main() {
