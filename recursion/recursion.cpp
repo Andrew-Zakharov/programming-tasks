@@ -18,6 +18,29 @@ int factorial_iterative(int number) {
     return result;
 }
 
+int fibonacci_recursive(int index) {
+    if (index < 2) {
+        return index;
+    }
+
+    return fibonacci_recursive(index - 1) + fibonacci_recursive(index - 2);
+}
+
+int fibonacci_iterative(int index) {
+    int first = 0;
+    int second = 1;
+    int sum = 0;
+
+    for (int i = 0; i < index; i++) {
+        sum = first + second;
+
+        first = second;
+        second = sum;
+    }
+
+    return first;
+}
+
 void test_factorial() {
     std::cout << factorial_recursive(10) << std::endl;
     std::cout << factorial_iterative(10) << std::endl;
@@ -25,7 +48,10 @@ void test_factorial() {
 
 int main()
 {
-    test_factorial();
+    //test_factorial();
+
+    std::cout << fibonacci_recursive(15) << std::endl;
+    std::cout << fibonacci_iterative(15) << std::endl;
 
     return 0;
 }
