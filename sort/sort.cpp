@@ -3,12 +3,31 @@
 
 namespace sort {
     void bubble(std::vector<int>& source) {
-        for (size_t i = 0; i < source.size(); i++){
+        for (size_t i = 0; i < source.size(); i++) {
             for (size_t j = i + 1; j < source.size(); j++) {
                 if (source.at(i) > source.at(j)) {
                     std::swap(source[i], source[j]);
                 }
             }
+        }
+    }
+
+    void selection(std::vector<int>& source) {
+        int min = 0;
+        size_t min_index = 0;
+
+        for (size_t i = 0; i < source.size(); i++) {
+            min = source[i];
+            min_index = i;
+
+            for (size_t j = i + 1; j < source.size(); j++) {
+                if (source[j] < min) {
+                    min = source[j];
+                    min_index = j;
+                }
+            }
+
+            std::swap(source[i], source[min_index]);
         }
     }
 }
@@ -21,15 +40,19 @@ void print_vector(const std::vector<int> v) {
     std::cout << std::endl;
 }
 
-int main()
-{
+void test_sort() {
     std::vector<int> numbers = { 99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0 };
 
     print_vector(numbers);
 
-    sort::bubble(numbers);
+    sort::selection(numbers);
 
     print_vector(numbers);
+}
+
+int main()
+{
+    test_sort();
 
     return 0;
 }
