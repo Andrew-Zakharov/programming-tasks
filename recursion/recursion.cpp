@@ -41,6 +41,25 @@ int fibonacci_iterative(int index) {
     return first;
 }
 
+std::string reverse_iterative(const std::string& str) {
+    std::string result;
+
+    for (int i = str.length(); i >= 0; i--) {
+        result.push_back(str[i]);
+    }
+
+    return result;
+}
+
+std::string reverse_recursive(const std::string& str) {
+    
+    if (str.length() == 0) {
+        return "";
+    }
+
+    return reverse_recursive(str.substr(1)) + str[0];
+}
+
 void test_factorial() {
     std::cout << factorial_recursive(10) << std::endl;
     std::cout << factorial_iterative(10) << std::endl;
@@ -50,8 +69,12 @@ int main()
 {
     //test_factorial();
 
-    std::cout << fibonacci_recursive(15) << std::endl;
-    std::cout << fibonacci_iterative(15) << std::endl;
+    //std::cout << fibonacci_recursive(15) << std::endl;
+    //std::cout << fibonacci_iterative(15) << std::endl;
+
+    std::cout << reverse_recursive("yoyo mastery") << std::endl;
+
+    //reverse_recursive("yoyo mastery");
 
     return 0;
 }
