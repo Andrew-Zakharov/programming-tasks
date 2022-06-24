@@ -13,16 +13,13 @@ namespace sort {
     }
 
     void selection(std::vector<int>& source) {
-        int min = 0;
         size_t min_index = 0;
 
         for (size_t i = 0; i < source.size(); i++) {
-            min = source[i];
             min_index = i;
 
             for (size_t j = i + 1; j < source.size(); j++) {
-                if (source[j] < min) {
-                    min = source[j];
+                if (source[j] < source[min_index]) {
                     min_index = j;
                 }
             }
