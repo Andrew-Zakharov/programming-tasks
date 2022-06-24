@@ -27,6 +27,27 @@ namespace sort {
             std::swap(source[i], source[min_index]);
         }
     }
+
+    void insertion(std::vector<int>& source) {
+        size_t index = 0;
+        int value = 0;
+
+        for (size_t i = 0; i < source.size(); i++) {
+            value = source[i];
+
+            for (size_t j = 0; j < i; j++) {
+                if (source[j] > source[i]) {
+                    for (size_t k = i; k > j; k--) {
+                        source[k] = source[k - 1];
+                    }
+
+                    source[j] = value;
+
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void print_vector(const std::vector<int> v) {
@@ -42,7 +63,7 @@ void test_sort() {
 
     print_vector(numbers);
 
-    sort::selection(numbers);
+    sort::insertion(numbers);
 
     print_vector(numbers);
 }
