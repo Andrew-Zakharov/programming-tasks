@@ -33,9 +33,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "two-sum", "workspace\two-su
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trees", "workspace\trees.vcxproj", "{CA79FD48-BAE5-431A-BCA4-F9365CCCEA3F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "recursion", "recursion\recursion.vcxproj", "{DBA581AE-1DB3-40A6-B8FC-E266DB8C0D5B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "recursion", "workspace\recursion.vcxproj", "{DBA581AE-1DB3-40A6-B8FC-E266DB8C0D5B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sort", "sort\sort.vcxproj", "{3DBDF8A2-0485-494F-A2C5-75F61924E8DF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sort", "workspace\sort.vcxproj", "{3DBDF8A2-0485-494F-A2C5-75F61924E8DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
