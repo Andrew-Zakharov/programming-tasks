@@ -32,19 +32,17 @@ namespace sort {
         size_t index = 0;
         int value = 0;
 
-        for (size_t i = 0; i < source.size(); i++) {
-            value = source[i];
+        for (size_t i = 0; i < source.size() - 1; i++) {
+            if (source[i + 1] < source[i]) {
+                size_t k = i + 1;
+                value = source[k];
 
-            for (size_t j = 0; j < i; j++) {
-                if (source[j] > source[i]) {
-                    for (size_t k = i; k > j; k--) {
-                        source[k] = source[k - 1];
-                    }
+                do {
+                    source[k] = source[k - 1];
+                    k--;
+                } while (k > 0 && source[k - 1] > value);
 
-                    source[j] = value;
-
-                    break;
-                }
+                source[k] = value;
             }
         }
     }
