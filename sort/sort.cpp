@@ -1,6 +1,36 @@
 #include <iostream>
 #include <vector>
 
+namespace utility {
+    std::vector<int> merge(const std::vector<int>& first, const std::vector<int>& second) {
+        std::vector<int> merged;
+
+        size_t i = 0;
+        size_t j = 0;
+
+        while (i < first.size() && j < second.size()) {
+            if (first[i] < second[j] || first[i] == second[j]) {
+                merged.push_back(first[i]);
+                i++;
+            }
+            else if (first[i] > second[j]) {
+                merged.push_back(second[j]);
+                j++;
+            }
+        }
+
+        for (; j < second.size(); j++) {
+            merged.push_back(second[j]);
+        }
+
+        for (; i < first.size(); i++) {
+            merged.push_back(first[i]);
+        }
+
+        return merged;
+    }
+}
+
 namespace sort {
     void bubble(std::vector<int>& source) {
         for (size_t i = 0; i < source.size(); i++) {
@@ -46,6 +76,19 @@ namespace sort {
             }
         }
     }
+
+    std::vector<int> merge(const std::vector<int>& source) {
+        if (source.size() == 1) {
+            return source;
+        }
+
+        size_t half_size = source.size() / 2;
+
+        std::vector<int> left(source.begin(), source.begin() + half_size);
+        std::vector<int> right(source.begin() + half_size, source.end());
+
+        return utility::merge(merge(left), merge(right));
+    }
 }
 
 void print_vector(const std::vector<int> v) {
@@ -61,9 +104,7 @@ void test_sort() {
 
     print_vector(numbers);
 
-    sort::insertion(numbers);
-
-    print_vector(numbers);
+    print_vector(sort::merge(numbers));
 }
 
 int main()
