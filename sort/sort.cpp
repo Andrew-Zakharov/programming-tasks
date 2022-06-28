@@ -1,33 +1,16 @@
 #include <iostream>
 #include <vector>
+#include <set>
 
 namespace utility {
     std::vector<int> merge(const std::vector<int>& first, const std::vector<int>& second) {
-        std::vector<int> merged;
+        std::vector<int> merged = first;
 
-        size_t i = 0;
-        size_t j = 0;
+        merged.insert(merged.end(), second.begin(), second.end());
 
-        while (i < first.size() && j < second.size()) {
-            if (first[i] < second[j] || first[i] == second[j]) {
-                merged.push_back(first[i]);
-                i++;
-            }
-            else if (first[i] > second[j]) {
-                merged.push_back(second[j]);
-                j++;
-            }
-        }
+        std::multiset<int> s(merged.begin(), merged.end());
 
-        for (; j < second.size(); j++) {
-            merged.push_back(second[j]);
-        }
-
-        for (; i < first.size(); i++) {
-            merged.push_back(first[i]);
-        }
-
-        return merged;
+        return std::vector<int>(s.begin(), s.end());
     }
 }
 
@@ -100,16 +83,27 @@ void print_vector(const std::vector<int> v) {
 }
 
 void test_sort() {
-    std::vector<int> numbers = { 99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0 };
+    std::vector<int> numbers = { 99, 44, 6, 2, 1, 5, 63, 87, 1, 283, 4, 0 };
 
     print_vector(numbers);
 
     print_vector(sort::merge(numbers));
 }
 
+void test_vector_merge() {
+    std::vector<int> first = { 1, 5, 3 };
+    std::vector<int> second = { 4, 2 };
+
+    std::vector<int> result = utility::merge(first, second);
+
+    print_vector(result);
+}
+
 int main()
 {
-    test_sort();
+    //test_sort();
+
+    test_vector_merge();
 
     return 0;
 }
