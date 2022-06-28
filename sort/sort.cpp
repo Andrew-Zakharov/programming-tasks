@@ -3,6 +3,14 @@
 #include <set>
 
 namespace utility {
+    void print_vector(const std::vector<int> v) {
+        for (auto n : v) {
+            std::cout << n << ' ';
+        }
+
+        std::cout << std::endl;
+    }
+
     std::vector<int> merge(const std::vector<int>& first, const std::vector<int>& second) {
         std::vector<int> merged = first;
 
@@ -11,6 +19,24 @@ namespace utility {
         std::multiset<int> s(merged.begin(), merged.end());
 
         return std::vector<int>(s.begin(), s.end());
+    }
+
+    size_t get_pivot_index(const std::vector<int>& source) {
+        return (source.size() - 1);
+    }
+
+    std::vector<int> concat_vectors(const std::vector<int>& first, const std::vector<int>& second) {
+        std::vector<int> result = first;
+
+        std::cout << "Concating vectors: ";
+
+        print_vector(first);
+
+        print_vector(second);
+
+        result.insert(result.end(), second.begin(), second.end());
+
+        return result;
     }
 }
 
@@ -70,24 +96,82 @@ namespace sort {
         std::vector<int> left(source.begin(), source.begin() + half_size);
         std::vector<int> right(source.begin() + half_size, source.end());
 
-        return utility::merge(merge(left), merge(right));
-    }
-}
-
-void print_vector(const std::vector<int> v) {
-    for (auto n : v) {
-        std::cout << n << ' ';
+        return utility::merge(sort::merge(left), sort::merge(right));
     }
 
-    std::cout << std::endl;
+    std::vector<int> quick(std::vector<int> source) {
+        if (source.size() < 2) {
+            return source;
+        }
+
+
+        std::cout << "==============================================" << std::endl;
+
+        std::cout << "Sorting array: ";
+
+        utility::print_vector(source);
+
+        size_t pivot_index = utility::get_pivot_index(source);
+        size_t i = 0;
+        //int pivot = source[pivot_index];
+
+        while (i < pivot_index) {
+            if (source[i] > source[pivot_index]) {
+                std::swap(source[i], source[pivot_index]);
+                pivot_index--;
+                std::swap(source[i], source[pivot_index]);
+            }
+            else {
+                i++;
+            }
+        }
+
+        std::cout << "i: " << i << std::endl;
+
+        std::cout << "Result: ";
+
+        utility::print_vector(source);
+
+        std::vector<int> left, right, pivot;
+
+        if (pivot_index == 0) {
+            left.push_back(source[pivot_index]);
+            right.assign(source.begin() + pivot_index + 1, source.end());
+        }
+        else if ((pivot_index == source.size() - 1)) {
+            left.assign(source.begin(), source.begin() + pivot_index);
+            right.push_back(source[pivot_index]);
+        }
+        else {
+            left.assign(source.begin(), source.begin() + pivot_index);
+            right.assign(source.begin() + pivot_index + 1, source.end());
+            pivot.push_back(source[pivot_index]);
+        }
+
+        std::cout << "Left: ";
+
+        utility::print_vector(left);
+
+        std::cout << "Right: ";
+
+        utility::print_vector(right);
+
+        std::cout << "==============================================" << std::endl;
+
+        return utility::concat_vectors(utility::concat_vectors(sort::quick(left), pivot), sort::quick(right));
+    }
 }
 
 void test_sort() {
-    std::vector<int> numbers = { 99, 44, 6, 2, 1, 5, 63, 87, 1, 283, 4, 0 };
+    std::vector<int> numbers = { 3, 7, 8, 5, 2, 1, 9, 5, 4 };
 
-    print_vector(numbers);
+    utility::print_vector(numbers);
 
-    print_vector(sort::merge(numbers));
+    std::vector<int> result = sort::quick(numbers);
+
+    std::cout << "Final result: ";
+
+    utility::print_vector(result);
 }
 
 void test_vector_merge() {
@@ -96,14 +180,14 @@ void test_vector_merge() {
 
     std::vector<int> result = utility::merge(first, second);
 
-    print_vector(result);
+    utility::print_vector(result);
 }
 
 int main()
 {
-    //test_sort();
+    test_sort();
 
-    test_vector_merge();
+    //test_vector_merge();
 
     return 0;
 }
