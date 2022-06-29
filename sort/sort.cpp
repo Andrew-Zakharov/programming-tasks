@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <unordered_set>
+#include <unordered_map>
 
 namespace utility {
     void print_vector(const std::vector<int> v) {
@@ -116,6 +118,36 @@ namespace sort {
                                 source[pivot_index],
                                 sort::quick(std::vector<int>(source.begin() + pivot_index + 1, source.end())));
     }
+
+    std::vector<int> counting(const std::vector<int>& source) {
+        std::vector<int> b(source.size(), 0);
+        std::vector<int> c;
+        int max = source[0];
+
+        for (size_t i = 0; i < source.size(); i++) {
+            if (source[i] > max) {
+                max = source[i];
+            }
+        }
+
+        c.resize(max + 1, 0);
+
+        for (size_t i = 0; i < source.size(); i++) {
+            c[source[i]]++;
+        }
+
+        for (size_t i = 0; i < c.size() - 1; i++) {
+            c[i + 1] = c[i] + c[i + 1];
+        }
+
+        for (size_t i = 0; i < source.size(); i++) {
+            int index = c[source[i]] - 1;
+            b[index] = source[i];
+            c[source[i]]--;
+        }
+
+        return b;
+    }
 }
 
 void test_sort() {
@@ -123,9 +155,7 @@ void test_sort() {
 
     utility::print_vector(numbers);
 
-    std::vector<int> result = sort::quick(numbers);
-
-    std::cout << "Final result: ";
+    std::vector<int> result = sort::counting(numbers);
 
     utility::print_vector(result);
 }
