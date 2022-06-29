@@ -25,15 +25,10 @@ namespace utility {
         return (source.size() - 1);
     }
 
-    std::vector<int> concat_vectors(const std::vector<int>& first, const std::vector<int>& second) {
+    std::vector<int> concat(const std::vector<int>& first, const int& pivot, const std::vector<int>& second) {
         std::vector<int> result = first;
 
-        std::cout << "Concating vectors: ";
-
-        print_vector(first);
-
-        print_vector(second);
-
+        result.push_back(pivot);
         result.insert(result.end(), second.begin(), second.end());
 
         return result;
@@ -104,21 +99,12 @@ namespace sort {
             return source;
         }
 
-
-        std::cout << "==============================================" << std::endl;
-
-        std::cout << "Sorting array: ";
-
-        utility::print_vector(source);
-
         size_t pivot_index = utility::get_pivot_index(source);
         size_t i = 0;
-        //int pivot = source[pivot_index];
 
         while (i < pivot_index) {
             if (source[i] > source[pivot_index]) {
-                std::swap(source[i], source[pivot_index]);
-                pivot_index--;
+                std::swap(source[i], source[pivot_index--]);
                 std::swap(source[i], source[pivot_index]);
             }
             else {
@@ -126,39 +112,9 @@ namespace sort {
             }
         }
 
-        std::cout << "i: " << i << std::endl;
-
-        std::cout << "Result: ";
-
-        utility::print_vector(source);
-
-        std::vector<int> left, right, pivot;
-
-        if (pivot_index == 0) {
-            left.push_back(source[pivot_index]);
-            right.assign(source.begin() + pivot_index + 1, source.end());
-        }
-        else if ((pivot_index == source.size() - 1)) {
-            left.assign(source.begin(), source.begin() + pivot_index);
-            right.push_back(source[pivot_index]);
-        }
-        else {
-            left.assign(source.begin(), source.begin() + pivot_index);
-            right.assign(source.begin() + pivot_index + 1, source.end());
-            pivot.push_back(source[pivot_index]);
-        }
-
-        std::cout << "Left: ";
-
-        utility::print_vector(left);
-
-        std::cout << "Right: ";
-
-        utility::print_vector(right);
-
-        std::cout << "==============================================" << std::endl;
-
-        return utility::concat_vectors(utility::concat_vectors(sort::quick(left), pivot), sort::quick(right));
+        return utility::concat( sort::quick(std::vector<int>(source.begin(), source.begin() + pivot_index)), 
+                                source[pivot_index],
+                                sort::quick(std::vector<int>(source.begin() + pivot_index + 1, source.end())));
     }
 }
 
