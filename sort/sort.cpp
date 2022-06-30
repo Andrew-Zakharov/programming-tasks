@@ -122,7 +122,7 @@ namespace sort {
     std::vector<int> counting(const std::vector<int>& source) {
         std::vector<int> b(source.size(), 0);
         std::vector<int> c;
-        int max = source[0];
+        int max = 0;
 
         for (size_t i = 0; i < source.size(); i++) {
             if (source[i] > max) {
