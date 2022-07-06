@@ -23,6 +23,12 @@
             "options": {
                 "cwd": "${fileDirname}"
             }
+        },
+
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/out/${fileBasenameNoExtension}.exe",
         }
     ]
 }
