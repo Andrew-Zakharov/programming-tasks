@@ -1,4 +1,5 @@
 #include <vector>
+#include <queue>
 
 namespace tree {
     class Node {
@@ -301,6 +302,34 @@ namespace tree {
             inorder(root, temp);
 
             return temp;
+        }
+
+        Node* breadthFirstSearch(int data) {
+            std::queue<Node*> q;
+
+            Node* current = root;
+
+            while(current){
+                if(current->getData() == data){
+                    break;
+                }
+
+                std::cout << current->getData() << std::endl;
+
+                if(current->getLeft()){
+                    q.push(current->getLeft());
+                }
+
+                if(current->getRight()){
+                    q.push(current->getRight());
+                }
+
+                //current = current->getLeft();
+                current = q.empty() ? nullptr : q.front();
+                q.pop();
+            }
+
+            return root;
         }
 
         void remove(int data) {
