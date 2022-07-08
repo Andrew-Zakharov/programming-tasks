@@ -11,7 +11,11 @@ void test_bst() {
         b.insert(n);
     }
 
-    tree::Node* founded = b.breadthFirstSearch(90);
+    tree::Node* founded = b.breadthFirstSearch_recursive(38);
+
+    if(founded){
+        std::cout << "Found: " << founded << std::endl;
+    }
 }
 
 int main() {

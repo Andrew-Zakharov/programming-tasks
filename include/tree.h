@@ -332,6 +332,37 @@ namespace tree {
             return root;
         }
 
+        Node* breadthFirstSearch_recursive(int data){
+            std::queue<Node*> q;
+
+            q.push(root);
+
+            return breadthFirstSearch_recursive(q, data);
+        }
+
+        Node* breadthFirstSearch_recursive(std::queue<Node*>& q, const int& data){
+            if(q.empty()){
+                return nullptr;
+            }
+
+            Node* current = q.front();
+            q.pop();
+
+            if(current->getData() == data){
+                return current;
+            }
+
+            if(current->getLeft()){
+                q.push(current->getLeft());
+            }
+
+            if(current->getRight()){
+                q.push(current->getRight());
+            }
+
+            return breadthFirstSearch_recursive(q, data);
+        }
+
         void remove(int data) {
             root = remove_recursive(root, data);
         }
