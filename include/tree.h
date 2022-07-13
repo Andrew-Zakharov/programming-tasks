@@ -1,7 +1,16 @@
 #include <vector>
 #include <queue>
+#include <stack>
+#include <unordered_set>
 
 namespace tree {
+    enum TraversalType{
+        inorder = 0,
+        preorder,
+        postorder
+    };
+
+
     class Node {
     public:
         Node(int data) : data(data) {
@@ -361,6 +370,37 @@ namespace tree {
             }
 
             return breadthFirstSearch_recursive(q, data);
+        }
+
+        Node* depthFirstSearch_iterative(const int& data){
+            std::stack<Node*> s;
+            Node* current = nullptr;
+            std::unordered_set<int> visited;
+
+            s.push(root);
+
+            while(!s.empty()){
+                current = s.top();
+
+                if(current->getLeft() && visited.find(current->getLeft()->getData()) == visited.end()){
+                    s.push(current->getLeft());
+                }
+                else{
+                    s.pop();
+                    std::cout << current->getData() << std::endl;
+                    visited.insert(current->getData());
+
+                    if(current->getRight()){
+                        s.push(current->getRight());
+                    }
+                }
+            }
+
+            return current;
+        }
+
+        Node* depthFirstSearch(TraversalType type, const int& data){
+            return depthFirstSearch_iterative(data);
         }
 
         void remove(int data) {

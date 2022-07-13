@@ -11,11 +11,13 @@ void test_bst() {
         b.insert(n);
     }
 
-    tree::Node* founded = b.breadthFirstSearch_recursive(38);
+    /*tree::Node* founded = b.breadthFirstSearch_recursive(38);
 
     if(founded){
         std::cout << "Found: " << founded << std::endl;
-    }
+    }*/
+
+    b.depthFirstSearch(tree::TraversalType::inorder, 0);
 }
 
 int main() {
