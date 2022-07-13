@@ -372,7 +372,7 @@ namespace tree {
             return breadthFirstSearch_recursive(q, data);
         }
 
-        Node* depthFirstSearch_iterative(const int& data){
+        Node* depthFirstSearch_iterative_inorder(const int& data){
             std::stack<Node*> s;
             Node* current = nullptr;
             std::unordered_set<int> visited;
@@ -399,8 +399,44 @@ namespace tree {
             return current;
         }
 
+        Node* depthFirstSearch_iterative_preorder(const int& data){
+            std::unordered_set<int> visited;
+            std::stack<Node*> s;
+            Node* current = nullptr;
+
+            s.push(root);
+
+            while(!s.empty()){
+                current = s.top();
+                s.pop();
+                std::cout << current->getData() << std::endl;
+
+                if(current->getRight()){
+                    s.push(current->getRight());
+                }
+
+                if(current->getLeft()){
+                    s.push(current->getLeft());
+                }
+            }
+
+            return current;
+        }
+
         Node* depthFirstSearch(TraversalType type, const int& data){
-            return depthFirstSearch_iterative(data);
+            Node* founded = nullptr;
+
+            switch(type){
+                case TraversalType::inorder:{
+                    depthFirstSearch_iterative_inorder(data);
+                }break;
+
+                case TraversalType::preorder:{
+                    depthFirstSearch_iterative_preorder(data);
+                }break;
+            }
+
+            return founded;
         }
 
         void remove(int data) {

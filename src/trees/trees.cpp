@@ -17,7 +17,7 @@ void test_bst() {
         std::cout << "Found: " << founded << std::endl;
     }*/
 
-    b.depthFirstSearch(tree::TraversalType::inorder, 0);
+    b.depthFirstSearch(tree::TraversalType::preorder, 0);
 }
 
 int main() {
