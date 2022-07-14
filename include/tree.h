@@ -423,6 +423,48 @@ namespace tree {
             return current;
         }
 
+        Node* depthFirstSearch_iterative_postorder(const int& data){
+            Node* current = nullptr;
+            std::unordered_set<int> visited;
+            std::stack<Node*> s;
+            Node* right, *left;
+
+            s.push(root);
+
+            while(!s.empty()){
+                current = s.top();
+                right = current->getRight();
+                left = current->getLeft();
+
+                if(right){
+                    if(visited.find(right->getData()) != visited.end()){
+                        right = nullptr;
+                    }
+                    else{
+                        s.push(right);
+                    }
+                }
+
+                if(left){
+                    if(visited.find(left->getData()) != visited.end()){
+                        left = nullptr;
+                    }
+                    else{
+                        s.push(left);
+                    }
+                    
+                }
+
+                if(!left && !right){
+                    std::cout << current->getData() << std::endl;
+                    s.pop();
+                    visited.insert(current->getData());
+                }
+            }
+
+            return current;
+        }
+
         Node* depthFirstSearch(TraversalType type, const int& data){
             Node* founded = nullptr;
 
@@ -433,6 +475,10 @@ namespace tree {
 
                 case TraversalType::preorder:{
                     depthFirstSearch_iterative_preorder(data);
+                }break;
+
+                case TraversalType::postorder:{
+                    depthFirstSearch_iterative_postorder(data);
                 }break;
             }
 
