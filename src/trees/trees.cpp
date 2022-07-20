@@ -7,6 +7,10 @@ void test_bst() {
 
     std::vector<int> data = { 30, 40, 20, 37, 38, 25 };
 
+    // Postorder:   25 20 38 37 40 30
+    // Preorder:    30 20 25 40 37 38
+    // Inorder:     20 25 30 37 38 40  
+
     for (int n : data) {
         b.insert(n);
     }
@@ -17,7 +21,7 @@ void test_bst() {
         std::cout << "Found: " << founded << std::endl;
     }*/
 
-    b.depthFirstSearch(tree::TraversalType::postorder, 0);
+    b.depthFirstSearch(tree::TraversalType::inorder, 0);
 }
 
 int main() {
