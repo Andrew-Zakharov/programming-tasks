@@ -21,7 +21,7 @@ void test_bst() {
         std::cout << "Found: " << founded << std::endl;
     }*/
 
-    tree::Node* founded = b.depthFirstSearch(tree::TraversalType::preorder, 37);
+    tree::Node* founded = b.depthFirstSearch(tree::TraversalType::postorder, 37);
 
     if(founded){
         std::cout << founded << ", " << founded->getData() << std::endl; 
