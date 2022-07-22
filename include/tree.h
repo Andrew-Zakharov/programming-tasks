@@ -415,6 +415,28 @@ namespace tree {
             return root;
         }
 
+        Node* depthFirstSearch_recursive_preorder(Node* root, const int& data){
+            if(!root){
+                return nullptr;
+            }
+
+            if(root->getData() == data){
+                return root;
+            }
+
+            Node* founded = nullptr;
+
+            std::cout << root->getData() << std::endl;
+
+            if(root->getLeft())
+                founded = depthFirstSearch_recursive_preorder(root->getLeft(), data);
+
+            if(root->getRight())
+                founded = depthFirstSearch_recursive_preorder(root->getRight(), data);
+
+            return founded;
+        }
+
         Node* depthFirstSearch_iterative_preorder(const int& data){
             std::unordered_set<int> visited;
             std::stack<Node*> s;
@@ -486,15 +508,15 @@ namespace tree {
 
             switch(type){
                 case TraversalType::inorder:{
-                    depthFirstSearch_recursive_inorder(root, data);
+                    founded = depthFirstSearch_recursive_inorder(root, data);
                 }break;
 
                 case TraversalType::preorder:{
-                    depthFirstSearch_iterative_preorder(data);
+                    founded = depthFirstSearch_recursive_preorder(root, data);
                 }break;
 
                 case TraversalType::postorder:{
-                    depthFirstSearch_iterative_postorder(data);
+                    founded = depthFirstSearch_iterative_postorder(data);
                 }break;
             }
 
