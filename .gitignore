@@ -406,3 +406,6 @@ build/*
 # Ignore cmake generated directories and files.
 /lib
 /tests/*.cmake
+
+#Ignore submodule
+/googletest
